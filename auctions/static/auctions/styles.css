@@ -1,0 +1,202 @@
+body {
+    padding: 10px;
+    background-color: #1B1E2B;
+    color: #b0d2df;
+}
+
+.infocontainer .form-control {
+    background-color: #292D3E;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: floralwhite;
+}
+
+.margtop {
+    margin-top: 15px;
+}
+
+.formfield {
+    width: 250px;
+}
+
+.infocontainer {
+    border: floralwhite solid 1px;
+    padding: 15px;
+}
+
+.listing {
+    border: #8690bb solid 1px;
+    margin: 15px;
+    padding: 10px;
+    width: 450px;
+    height: 500px;
+    background-color: #292D3E;
+    border-radius: 5px;
+}
+
+.listing a {
+    text-decoration: none;
+    font-size: 23px;
+}
+
+.listing img {
+    text-align: center;
+    border: #2f393b solid 1px;
+    border-radius: 3px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    display: block;
+    width: 50%;
+    height: 50%;
+}
+
+.list-info {
+    margin: 25px;
+    width: auto;
+    border-radius: 5px;
+    background-color:#343642;
+}
+
+.listbox {
+    margin: 0px 0px 0px 10px;
+}
+
+#title {
+    margin: 20px 0px 0px 10px;
+    color: rgb(194, 227, 247);
+}
+
+.date {
+    color: #5d6d70;
+}
+
+.listinfo {
+    margin: 25px;
+}
+
+.containerlist {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+    justify-content: left;
+}
+
+.container {
+    border: #6b718d solid 1px;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.col {
+    border: #6b718d solid .5px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 15px;
+    background-color: #292D3E;
+}
+
+.col img {
+    
+    margin: auto;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infos {
+    background-color: #292D3E;
+    padding: 10px 10px 10px 20px;
+}
+
+.infos p {
+    color: aliceblue;
+
+}
+
+#watchbox {
+    width: auto;
+    padding: 0px 4px 1px 4px;
+    border: #8690bb solid 1px;
+    border-radius: 4px;
+    color: #1B1E2B;
+    background-color: azure;
+    margin-left: 3px;
+}
+
+.input-group .form-control, .btn {
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.card-header .commentdate {
+    font-size: smaller;
+}
+
+.card-header .commentname {
+    font-size: large;
+}
+
+.commentfield {
+    max-height: 185px;
+}
+
+.messages {
+    margin-top: 1em;
+    list-style: none;
+    text-align: center;
+}
+
+.msg {
+    margin: 2 !important;
+    width: 50%;
+    display: inline-block;
+    text-align: left;
+}
+
+.alert {
+    margin-top: 1rem;
+}
+
+.loginbox {
+    margin: auto;
+    width: 20%;
+    text-align: center;
+}
+
+.loginbox h2 {
+    margin-bottom: 30px;
+}
+
+.containerCat {
+    background-color: #292D3E;
+    border-radius: 5px;
+}
+
+.catbox {
+    border: #575c74 solid 1px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.catbox a {
+    text-decoration: none;
+    color: #edeef3;
+    font-weight:bold;
+}
+
+.card {
+    border: #5B648A solid 2px;
+    background-color: #292D3E;
+    margin-top: 25px;
+}
+
+.categorychoice {
+    width: 250px;
+}

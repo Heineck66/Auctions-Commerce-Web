@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+
+{% load utils %}
+
+{% block body %}
+    <h2>My Watchlist</h2>
+    
+    <div class="d-flex align-content-start flex-wrap">
+        {% for w in watchlist %}
+        <div class="listing">
+                <a href="{% url 'listing' w.listing.id %}">
+                    <img src="{{ w.listing.picture }}" alt="{{ w.listing.short_name }}">
+                    <div class="listinfo">
+                        <p id="title">{{ w.listing.short_name | title }} </p>
+                    </div>
+                </a>
+                <div class="listinfo">
+                    <p class="listbox"> <b>Price:</b> {{ w.listing.higher_bid | usd }}</p>
+                    <p class="listbox"> Description: {{ list.description }}</p>
+                    <p class="date listbox"> Created: {{w.listing.create_date}}</p>
+                </div>
+            </div>
+                
+            {% empty %}
+                <p>No Listings in your Watchlist</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

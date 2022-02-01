@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Auctions{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Auctions</h1>
+        <div>
+            {% if user.is_authenticated %}
+                Signed in as <strong>{{ user.username }}</strong>.
+            {% else %}
+                Not signed in.
+            {% endif %}
+        </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'watchlist' %}">Watchlist <b id="watchbox"> {{watchlength}} </b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create' %}">Create Listings</a>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+        <hr>
+        {% block messages %}
+        <ul class="messages" id="messages-list">
+        {% if messages %}
+            {% for message in messages %}
+            <li>
+                {% if message.tags %}
+                     <div class="alert alert-{{ message.tags }} msg fade show" role="alert"> <b> {{ message }} </b> </div>
+                {% else %}
+                    <div class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        {% endif %}
+        </ul>
+        {% endblock %}
+
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,134 @@
+{% extends "auctions/layout.html" %}
+
+{% load utils %}
+
+{% block body %}
+<div class="container">
+
+    {% if user.is_authenticated %}
+
+    <div class="row">
+        <div class="col">
+            {% if isWatched %}
+                <form action="{% url 'listing' listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-primary" value="Remove from WatchList">
+                </form>
+                {% else %}
+                <form action="{% url 'listing' listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="Add to WatchList">
+                </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col">
+            <div class="center">
+                <img src="{{ listing.picture }}" alt="{{ listing.short_name }}" width="400" height="400">
+            </div>
+        </div>
+        <div class="col infos">
+            <h1>{{listing.short_name | title}}</h1>
+            <hr>
+            <p> </p>
+            <p> <b>Description:</b>  {{ listing.description }}</p>
+            <p> <b>Starting bid:</b> {{ listing.starting_bid | usd }} </p>
+            <p> <b>Listed by:</b> {{listing.seller}}</p>
+            <p> <b>Category:</b> {% if listing.categories.all.count > 0 %} {% for c in listing.categories.all %} <i> - {{c.category}} </i> {% endfor %} {% else %} No category. {% endif %}</p>
+            <p class="date"> <b>Created:</b> {{listing.create_date}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+           
+            {% if not listing.closed %}
+                {% if user.is_authenticated %}
+                    {% if bid_info.bids_count > 0 %}
+                        <h2><b>{{ bid_info.higher_bid | usd }}</b></h2>
+                        <div> {{bid_info.bids_count}} bid(s) so far. Current bid from <b>{{bid_info.bid_owner}}</b></div>
+                    {% else %}
+                        <h2><b>{{ listing.starting_bid | usd }}</b></h2>
+                        <div>No bids so far</div>
+                    {% endif %}
+                    
+                    {% if listing.seller.id != user.id %}
+                        <form action="{% url 'bid' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <input type="hidden" name="listing_id" value="{{ listing.id }}">
+                                <input type="number" class="form-control" placeholder="Place your bid" name="value">
+                                <input type="submit" class="btn btn-primary" id="button-addon2" class="btn btn-outline-secondary" value="Place Bid">
+                            </div>
+                        </form>
+                    {% else %}
+
+                        <form action="{% url 'close' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="listing_id" value="{{ listing.id }}">
+                            <input type="submit" class="btn btn-primary" value="Close Auction">
+                        </form>
+
+                    {% endif %}
+
+                {% else %}
+                    <h2><b>{{ bid_info.higher_bid | usd }}</b></h2>
+                    You need to signed in to bid.
+                {% endif %}
+
+            {% else %}
+                <h2><b>Auction Closed</b></h2>
+                <h3>Sold to {{ listing.buyer }} for {{ bid_info.higher_bid | usd }} </h3>
+            {% endif %}  
+            
+
+                 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h4>Comments:</h4>
+            {% for comment in comments %}
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">
+                    <b class="commentname">{{comment.user}}</b> : <i class="commentdate">{{comment.date}}</i>
+                </div>
+                <div class="card-body comment">
+                    {{comment.comment}}
+                </div>
+            </div>
+            {% empty %}
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body comment">
+                    No comments
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if user.is_authenticated %}
+                {% if not listing.closed %}
+                <div class="comment">
+                    <form action="{% url 'comments' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="listing_id" value="{{listing.id}}">
+                        {{commentform}}
+                        <input type="submit" class="btn btn-primary" value="Comment">
+                    </form>
+                </div>
+                {% else %}
+                <h3>Closed auctions, comments are closed.</h3>
+                {% endif %} 
+            {% else %}
+                Not signed in.
+            {% endif %}
+
+               
+        </div>
+    </div>
+</div>
+{% endblock %}

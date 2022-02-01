@@ -1,0 +1,29 @@
+{% extends "auctions/categories.html" %}
+
+{% load utils %}
+
+{% block category %}
+    <div class="d-flex align-content-start flex-wrap">
+        {% for list in listings %}
+        
+            <div class="listing">
+                <a href="{% url 'listing' list.id %}">
+                    <img src="{{ list.picture }}" alt="{{ list.short_name }}">
+                    <div class="listinfo">
+                        <p id="title">{{ list.short_name | title }} </p>
+                    </div>
+                </a>
+                <div class="listinfo">
+                    <p class="listbox"> <b>Price:</b> {{ list.higher_bid | usd }}</p>
+                    <p class="listbox"> Description: {{ list.description }}</p>
+                    <p class="date listbox"> Created: {{list.create_date}}</p>
+                </div>
+            </div>
+                
+        {% empty %}
+        <div class="card">
+            <div class="card-body">No Listings for this Category</div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
